@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <stdlib.h>
 
 typedef struct queue
@@ -182,3 +182,135 @@ int main()
     return 0;
 }
 */
+
+#include <stdio.h>
+
+typedef struct queue
+{
+
+    int data;
+    struct queue *next;
+} queue;
+
+queue *front=NULL;
+queue *rear= NULL;
+
+void enqueue(int data)
+{
+
+    queue *temp= (queue *) malloc(sizeof(queue));
+    temp->data=data;
+    temp->next=NULL;
+
+    if(front==NULL && rear==NULL)
+    {
+        front=rear=temp;
+    }
+    else
+    {
+        rear->next= temp;
+        rear=temp;
+    }
+
+}
+
+int dequeue()
+{
+
+    int val;
+    if(front==rear)
+    {
+        rear=NULL;
+    }
+    if(front!=NULL)
+    {
+        queue *temp= (queue *) malloc(sizeof(queue));
+        temp= front;
+        val=front->data;
+        front=front->next;
+        free(temp);
+
+    }
+
+    return val;
+}
+
+int isEmpty()
+{
+
+    int c=0;
+
+    queue *temp= (queue *) malloc(sizeof(queue));
+    temp= front;
+
+    while(temp!=NULL)
+    {
+        c++;
+        temp=temp->next;
+    }
+    if(c==0)
+        return 1;
+    return 0;
+}
+
+#define total 7
+void bfs(int adjMat[][total], int s)
+{
+
+    int visited[total]= {0};
+    visited[s]=1;
+
+    enqueue(s);
+
+    while(!isEmpty())
+    {
+        int i= dequeue();
+        printf("%d ", i);
+        for(int j=0; j<total; j++)
+        {
+
+            if(adjMat[i][j]==1 && visited[j]==0)
+            {
+
+                visited[j]=1;
+                enqueue(j);
+            }
+        }
+    }
+}
+
+int main()
+{
+
+    int n,e;
+    printf("How many edges: ");
+    scanf("%d", &e);
+
+    int adjMat[total][total];
+
+    for(int i=0; i<total; i++)
+        for(int j=0; j<total; j++)
+            adjMat[i][j]=0;
+
+    for(int i=0; i<e; i++)
+    {
+        int s, d;
+        printf("Enter source and destination: ");
+        scanf("%d %d", &s, &d);
+        adjMat[s][d]=1;
+
+    }
+
+    for(int i=0; i<total; i++)
+    {
+        for(int j=0; j<total; j++)
+        {
+            printf("%d ", adjMat[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+
+    bfs(adjMat, 1);
+
+}
