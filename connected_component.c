@@ -1,11 +1,13 @@
 #include <stdio.h>
-typedef struct graphNode{
+typedef struct graphNode
+{
     int data;
     struct graphNode *next;
-}graphNode;
+} graphNode;
 graphNode **adjList;
 
-graphNode *createNode(int val){
+graphNode *createNode(int val)
+{
 
     graphNode *temp= (graphNode*) malloc(sizeof(graphNode));
     temp->data=val;
@@ -14,16 +16,20 @@ graphNode *createNode(int val){
     return temp;
 }
 
-void dfs(int visited[], int n, int s){
+void dfs(int visited[], int n, int s)
+{
 
-    if(visited[s]==0){
+    if(visited[s]==0)
+    {
         visited[s]=1;
         printf("%d ", s);
 
-        while(adjList[s]!=NULL){
+        while(adjList[s]!=NULL)
+        {
             int data= adjList[s]->data;
 
-            if(visited[data]==0){
+            if(visited[data]==0)
+            {
                 dfs(visited, n, data);
             }
             adjList[s]=adjList[s]->next;
@@ -38,13 +44,15 @@ int main()
     scanf("%d %d", &n, &e);
     adjList= (graphNode*) malloc(n* sizeof(graphNode));
 
-    for(int i=0; i<n; i++){
+    for(int i=0; i<n; i++)
+    {
         adjList[i]=NULL;
     }
 
     graphNode *node;
 
-    for(int i=0; i<e; i++){
+    for(int i=0; i<e; i++)
+    {
         int s, d;
         scanf("%d %d", &s, &d);
         // for directed graph
@@ -58,24 +66,27 @@ int main()
 
     }
 
-  /*  for(int i=0; i<n; i++){
+    /*  for(int i=0; i<n; i++){
 
-        printf("%d : ", i);
-        while(adjList[i]!=NULL){
-            printf("%d ", adjList[i]->data);
-            adjList[i]= adjList[i]->next;
-        }
-        printf("\n");
-    }*/
+          printf("%d : ", i);
+          while(adjList[i]!=NULL){
+              printf("%d ", adjList[i]->data);
+              adjList[i]= adjList[i]->next;
+          }
+          printf("\n");
+      }*/
 
     int visited[n];
-    for(int i=0; i<n; i++){
+    for(int i=0; i<n; i++)
+    {
         visited[i]=0;
     }
 
     int c=0;
-    for(int i=0; i<n; i++){
-        if(visited[i]==0){
+    for(int i=0; i<n; i++)
+    {
+        if(visited[i]==0)
+        {
             dfs(visited, n, i);
             c++;
             printf("\n");
