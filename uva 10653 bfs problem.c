@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 typedef struct queue
 {
     int data;
@@ -104,7 +104,7 @@ void bfs(int i, int j)
 }
 int main()
 {
-    freopen("input2.txt", "r", stdin);
+
     int bom, row, col, n_bom;
     int sr,sc,dr,dc;
     while(scanf("%d%d", &r,&c)==2 && r)
